@@ -17,14 +17,17 @@ app.post('/api/send-email', (req, res) => {
         port: 587, // Port for TLS
         secure: false, // true for 465, false for other ports
         auth: {
-          user: 'your-email@outlook.com', // Your Microsoft email address
-          pass: 'your-password' // Your Microsoft email password
-        }
+          user: 'info@isithreecs.org', 
+          pass: 'gtxhzkfgsbqkqddc' 
+        },
+        debug: true,
+        logger: true
+
       });
 
     const mailOptions = {
-        from: `${email}`,
-        to: 'recipient@example.com',
+        from: 'info@isithreecs.org',
+        to: 'info@isithreecs.org',
         subject: 'Contact Form Submission',
         text: `Name: ${name}\nPhone: ${phoneNumber}\nMessage: ${message}`
       };
@@ -35,11 +38,15 @@ app.post('/api/send-email', (req, res) => {
         res.status(500).json({ message: 'Error sending email' });
         } else {
         console.log('Email sent:', info.response);
-        res.json({ message: 'Email sent successfully' });
+        res.status(200).json({ message: 'Email sent successfully' });
         }
     });
 });
 
+app.use('/', (req, res) => {
+  res.send('server is working')
+})
+
 app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`);
-  })
+  console.log(`Server listening at http://localhost:${port}`);
+})
