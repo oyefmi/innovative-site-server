@@ -2,6 +2,7 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const bodyParser = require('body-parser');
 const cors = require('cors');
+require('dotenv').config()
 
 const app = express();
 const port = 3000;
@@ -17,8 +18,8 @@ app.post('/api/send-email', (req, res) => {
         port: 587, // Port for TLS
         secure: false, // true for 465, false for other ports
         auth: {
-          user: 'info@isithreecs.org', 
-          pass: 'gtxhzkfgsbqkqddc' 
+          user: process.env.EMAIL, 
+          pass: process.env.PW 
         },
         debug: true,
         logger: true
@@ -26,10 +27,10 @@ app.post('/api/send-email', (req, res) => {
       });
 
     const mailOptions = {
-        from: 'info@isithreecs.org',
-        to: 'info@isithreecs.org',
+        from: res.body.email,
+        to: process.env.EMAIL,
         subject: 'Contact Form Submission',
-        text: `Name: ${name}\nPhone: ${phoneNumber}\nMessage: ${message}`
+        text: `Name: ${name}\nEmail: ${email}\nPhone: ${phoneNumber}\nMessage: ${message}`
       };
 
     transporter.sendMail(mailOptions, (error, info) => {
