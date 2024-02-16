@@ -44,8 +44,8 @@ app.post('/api/send-email', (req, res) => {
     });
 });
 
-app.get('/', (req, res) => {
-  res.send('server is running')
+app.use('/', (req, res) => {
+  res.send('server is running');
 })
 
 app.listen(port, () => {
