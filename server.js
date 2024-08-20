@@ -10,13 +10,16 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(bodyParser.json());
 
-app.post('/api/send-email', (req, res) => {
+app.post('/send-email', (req, res) => {
     const { name, email, phoneNumber, message } = req.body;
 
     const transporter = nodemailer.createTransport({
         host: 'smtp.office365.com', // Microsoft's SMTP server
         port: 587, // Port for TLS
         secure: false, // true for 465, false for other ports
+        tls: {
+          chipers: 'SSLv3'
+        },
         auth: {
           user: process.env.EMAIL, 
           pass: process.env.PW 
